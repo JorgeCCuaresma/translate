@@ -33,6 +33,7 @@ export const TextArea: FC<Props> = ({ type, loading, onChange, value }) => {
         style={styles}
         value={value}
         onChange={handleChange}
+        disabled={type === SectionType.To}
         />
   )
 }
