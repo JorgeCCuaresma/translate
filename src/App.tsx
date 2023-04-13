@@ -3,10 +3,13 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { Container, Row, Col, Button, Stack } from 'react-bootstrap'
 import { useStore } from './hooks/useStore'
 import { AUTO_LANGUAGE } from './constants'
-import { ArrowsIcon } from './components/Icons'
+import { ArrowsIcon, ClipboardIcon } from './components/Icons'
 import { LanguageSelector } from './components/LanguageSelector'
 import { SectionType } from './types.d'
 import { TextArea } from './components/TextArea'
+import { useEffect } from 'react'
+import { translate } from './services/translate'
+import { useDebounce } from './hooks/useDebounce'
 
 const App = () => {
   const {
@@ -20,6 +23,25 @@ const App = () => {
     result,
     fromText
   } = useStore()
+
+  const debounceFromText = useDebounce<string>(fromText, 500)
+
+  useEffect(() => {
+    if (debounceFromText === '') return
+    translate(fromLanguage, toLanguage, debounceFromText)
+      .then(result => {
+        if (result == null) return
+        setResult(result)
+      })
+      .catch((error) => {
+        setResult('Error')
+        console.log('El error es', error.message)
+      })
+  }, [debounceFromText, fromLanguage, toLanguage])
+
+  const handleClipBoard = () => {
+    navigator.clipboard.writeText(result).catch(() => { })
+  }
 
   return (
     <Container fluid>
@@ -53,12 +75,21 @@ const App = () => {
               type={SectionType.To}
               value={toLanguage}
               onChange={setToLanguage} />
-            <TextArea
-              loading={loading}
-              type={SectionType.To}
-              value={result}
-              onChange={setResult}
-            />
+            <div style={{ position: 'relative' }}>
+              <TextArea
+                loading={loading}
+                type={SectionType.To}
+                value={result}
+                onChange={setResult}
+              />
+              { result !== '' && <Button
+                variant='link'
+                style={{ position: 'absolute', left: 0, bottom: 0 }}
+                onClick={handleClipBoard}
+              >
+                <ClipboardIcon />
+              </Button>}
+            </div>
           </Stack>
         </Col>
 
