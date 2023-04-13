@@ -8,7 +8,7 @@ interface Props {
   onChange: (value: string) => void
   value: string
 }
-const commonStyles = { border: 0, height: '200px' }
+const commonStyles = { border: 0, height: '400px', resize: 'none' }
 
 const getPlaceHolder = (type: SectionType, loading?: boolean) => {
   if (type === SectionType.From) return 'Introducir texto'

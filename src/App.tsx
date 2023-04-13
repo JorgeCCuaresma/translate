@@ -50,11 +50,14 @@ const App = () => {
   }
 
   return (
-    <Container fluid>
-      <h1>Translate</h1>
+    <Container >
+      <h2 style={{ marginBottom: '2rem', marginTop: '2rem' }}>
+        <span style={{ color: 'GrayText'}}>Cuaresma </span>
+         Translate
+      </h2>
       <Row>
 
-        <Col>
+        <Col >
           <Stack gap={2}>
             <LanguageSelector
               type={SectionType.From}
@@ -69,13 +72,13 @@ const App = () => {
           </Stack>
         </Col>
 
-        <Col xs='auto'>
+        <Col sm='auto' >
           <Button variant='link' disabled={fromLanguage === AUTO_LANGUAGE} onClick={interchangeLanguages}>
             <ArrowsIcon />
           </Button>
         </Col>
 
-        <Col>
+        <Col >
           <Stack gap={2}>
             <LanguageSelector
               type={SectionType.To}
