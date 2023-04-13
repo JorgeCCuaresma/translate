@@ -29,8 +29,10 @@ const reducer = (state: State, action: Action) => {
     const loading = state.fromText !== ''
     return {
       ...state,
-      fromLanguage: action.payload,
       result: '',
+      fromLanguage: action.payload,
+      fromText: '',
+
       loading
     }
   }
@@ -54,9 +56,10 @@ const reducer = (state: State, action: Action) => {
     }
   }
   if (type === 'SET_RESULT') {
+    const loading = state.fromText !== ''
     return {
       ...state,
-      loading: false,
+      loading,
       result: action.payload
     }
   }

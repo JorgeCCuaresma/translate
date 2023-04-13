@@ -51,8 +51,8 @@ const App = () => {
 
   return (
     <Container >
-      <h2 style={{ marginBottom: '2rem', marginTop: '2rem' }}>
-        <span style={{ color: 'GrayText'}}>Cuaresma </span>
+      <h2 style={{ marginBottom: '2rem', marginTop: '14rem' }}>
+        <span style={{ color: 'GrayText' }}>Cuaresma </span>
          Translate
       </h2>
       <Row>
